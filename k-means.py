@@ -7,6 +7,9 @@ tol = 1e-3
 max_iters = 100
 n_samples, n_features = X.shape
 centroids_init = X[np.random.choice(n_samples, k, replace=False)]
+
+
+# for loop version
 centroids = centroids_init
 for iteration in range(max_iters):
     dist = np.linalg.norm(X[:,np.newaxis]-centroids,axis=2) # 300x5
