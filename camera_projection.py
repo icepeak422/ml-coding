@@ -26,8 +26,7 @@ def project_points_fast(R, T, I, points):
     Transform = np.concatenate([R, T], axis=1)
     pad = np.ones((points.shape[0],1))
     points_4d = np.concatenate([points, pad], axis=1)
-    camera_projection = Transform @ points_4d.T 
-    camera_projection = camera_projection[:3,:]
+    camera_projection = Transform @ points_4d.T
     camera_projection = camera_projection / camera_projection[2,:]
     camera_projection = I @ camera_projection
     return camera_projection[:2,:]

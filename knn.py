@@ -9,10 +9,16 @@ test = np.random.rand(10,3) * 100
 k=5
 
 # KNN start
-dist = np.linalg.norm((test[:,np.newaxis,:] - X),axis=2,keepdims=True)
-top_k_neighbor = np.argsort(dist,axis=1)[:,:k,:].sum(axis=2)
+# 10x30
+dist = np.linalg.norm((test[:,np.newaxis,:] - X),axis=2)
+# 10x5
+top_k_neighbor = np.argsort(dist,axis=1)[:,:k]
+# This works because NumPy allows indexing a 1D array 
+# with a 2D array of indices, 
+# and it applies element-wise—returning a 2D array
+#  of selected values, shaped just like the index array.
 top_k_pred = labels[top_k_neighbor]
-print(top_k_pred.shape)
+
 def majority_vote(row):
     return np.bincount(row).argmax()
 
