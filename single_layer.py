@@ -19,9 +19,11 @@ class SingleLayerFCN:
         return loss
 
     def backward_grad(self, dout):
-        # N x input_size
+        # dout N x output_size
+        num = self.X.shape[0]
         dw = self.X.T @ dout # input_size x output_size
-        db = np.sum(dout, axis=0, keepdims=True) # 1 x output_size
+        db = np.ones((1,num))@dout # 1 x output_size
+        # db = np.sum(dout, axis=0, keepdims=True)
         self.weights -= dw * self.lr
         self.bias -= db * self.lr
         return dout @ self.weights.T
